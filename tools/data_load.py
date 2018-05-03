@@ -23,6 +23,7 @@ def dataload(filename, waveLenRange):
                 wavlen.append(float(data[0])*1000)
             else:
                 wavlen.append(float(data[0]))
+
         fn = interp1d(wavlen, n)
         fk = interp1d(wavlen, k)
 
@@ -30,6 +31,24 @@ def dataload(filename, waveLenRange):
         new_k = fk(waveLenRange)
 
         return new_n, new_k
+
+
+def data_load_model(filename):
+    n = []
+    k = []
+    w = []
+    with open(filename, 'r') as file_to_read:
+        while True:
+            lines = file_to_read.readline()
+            if not lines:
+                break
+            data = lines.strip().split(" ")
+            data[0] = float(data[0])
+            w.append(data[0])
+            n.append(data[1])
+            k.append(data[2])
+
+    return [w, n, k]
 
 
 """
